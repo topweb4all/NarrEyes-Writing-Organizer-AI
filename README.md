@@ -42,7 +42,7 @@ NarrEyes is an all-in-one platform that transforms the complex process of story 
 - Print-optimized layouts
 
 ### 👥 Character Development System
-![Character Management](/static/Images:/screenshots/characters.png.jpeg)
+![Character Management](/static/Images_/screenshots/characters.png.jpeg)
 
 - Create comprehensive character profiles
 - Upload character images with preview
