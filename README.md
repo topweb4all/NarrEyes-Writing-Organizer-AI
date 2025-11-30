@@ -2,7 +2,7 @@
 
 #### Description: # 📖 NarrEyes - Story Management Platform
 
-![NarrEyes Banner](/static/Images:/screenshots/banner.png)
+![NarrEyes Banner](/static/Images_/screenshots/banner.png)
 
 A comprehensive web-based story management platform designed for writers, novelists, and storytellers. NarrEyes provides powerful tools to organize, develop, and bring creative narratives to life with AI-powered assistance.
 
