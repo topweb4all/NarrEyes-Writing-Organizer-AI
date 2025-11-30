@@ -31,7 +31,7 @@ NarrEyes is an all-in-one platform that transforms the complex process of story 
 ## 🚀 Key Features
 
 ### 📝 Advanced Chapter Writing
-![Chapter Editor](/static/Images/screenshots/chapter-editor.png.jpeg)
+![Chapter Editor](/static/Images_/screenshots/chapter-editor.png.jpeg)
 
 - Rich text editor powered by TinyMCE
 - Real-time word count and character tracking
@@ -53,7 +53,7 @@ NarrEyes is an all-in-one platform that transforms the complex process of story 
 - Search and filter capabilities
 
 ### 🔗 Relationship Mapping
-![Relationships](/static/Images/screenshots/relationships.jpeg)
+![Relationships](/static/Images_/screenshots/relationships.jpeg)
 
 - Define connections between characters
 - Track relationship types and dynamics
@@ -62,7 +62,7 @@ NarrEyes is an all-in-one platform that transforms the complex process of story 
 - Cross-character interaction management
 
 ### 📅 Timeline Management
-![Timeline](/static/Images:/screenshots/timeline.jpeg)
+![Timeline](/static/Images_/screenshots/timeline.jpeg)
 
 - Create and organize story events
 - Chronological event tracking
@@ -71,7 +71,7 @@ NarrEyes is an all-in-one platform that transforms the complex process of story 
 - Event descriptions and notes
 
 ### 🤖 AI Content Generation
-![AI Generator](/static/Images/screenshots/ai-generator.jpeg)
+![AI Generator](/static/Images_/screenshots/ai-generator.jpeg)
 
 **Powered by OpenRouter API with multiple specialized models:**
 
@@ -87,7 +87,7 @@ Generate:
 - Plot ideas and story elements
 
 ### 📊 Analytics Dashboard
-![Dashboard](/static/Images/screenshots/dashboard..jpeg)
+![Dashboard](/static/Images_/screenshots/dashboard..jpeg)
 
 - Writing statistics overview
 - Total word count across all chapters
