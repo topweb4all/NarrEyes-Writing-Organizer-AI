@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block title %}Relationships - NarrEyes{% endblock %}
+
+{% block content %}
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2><i class="bi bi-hearts"></i> Character Relationships</h2>
+        <a href="{{ url_for('add_relationship') }}" class="btn btn-primary">
+            <i class="bi bi-heart-arrow"></i> Add Relationship
+        </a>
+    </div>
+
+    {% if relationships %}
+        <div class="row">
+            {% for rel in relationships %}
+                <div class="col-md-6 mb-4">
+                    <div class="card shadow h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h5 class="card-title mb-0">
+                                    <i class="bi bi-person-circle text-primary"></i> {{ rel.character1_name }}
+                                    <i class="bi bi-arrow-left-right text-danger"></i>
+                                    <i class="bi bi-person-circle text-primary"></i> {{ rel.character2_name }}
+                                </h5>
+                                <a href="{{ url_for('delete_relationship', id=rel.id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Delete this relationship?')">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                            </div>
+                            <span class="badge bg-info mb-2">{{ rel.relationship_type }}</span>
+                            {% if rel.description %}
+                                <p class="card-text mt-2">{{ rel.description }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info text-center">
+            <i class="bi bi-info-circle"></i> No relationships defined yet. Create connections between your characters!
+        </div>
+    {% endif %}
+{% endblock %}

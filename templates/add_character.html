@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+
+{% block title %}Add Character - NarrEyes{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-body p-4">
+                    <h2 class="card-title text-center mb-4">
+                        <i class="bi bi-person-plus"></i> Add New Character
+                    </h2>
+                    <form method="POST" action="{{ url_for('add_character') }}">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Character Name *</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="age" class="form-label">Age</label>
+                                <input type="number" class="form-control" id="age" name="age" min="0">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="role" class="form-label">Role</label>
+                                <input type="text" class="form-control" id="role" name="role" placeholder="e.g., Protagonist, Antagonist">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Physical Description</label>
+                            <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="personality" class="form-label">Personality</label>
+                            <textarea class="form-control" id="personality" name="personality" rows="3"></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="background" class="form-label">Background Story</label>
+                            <textarea class="form-control" id="background" name="background" rows="4"></textarea>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="{{ url_for('characters') }}" class="btn btn-secondary">
+                                <i class="bi bi-x-circle"></i> Cancel
+                            </a>
+                            <button type="submit" class="btn btn-success">
+                                <i class="bi bi-check-circle"></i> Add Character
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

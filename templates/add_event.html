@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+
+{% block title %}Add Event - NarrEyes{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-body p-4">
+                    <h2 class="card-title text-center mb-4">
+                        <i class="bi bi-calendar-plus"></i> Add Timeline Event
+                    </h2>
+                    <form method="POST" action="{{ url_for('add_event') }}">
+                        <div class="mb-3">
+                            <label for="event_title" class="form-label">Event Title *</label>
+                            <input type="text" class="form-control" id="event_title" name="event_title" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="event_date" class="form-label">Event Date</label>
+                            <input type="text" class="form-control" id="event_date" name="event_date" placeholder="e.g., Spring 1995, Day 1">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea class="form-control" id="description" name="description" rows="4"></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="chapter_id" class="form-label">Related Chapter (Optional)</label>
+                            <select class="form-select" id="chapter_id" name="chapter_id">
+                                <option value="">-- None --</option>
+                                {% for chapter in chapters %}
+                                    <option value="{{ chapter.id }}">Ch. {{ chapter.chapter_number }}: {{ chapter.title }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="{{ url_for('timeline') }}" class="btn btn-secondary">
+                                <i class="bi bi-x-circle"></i> Cancel
+                            </a>
+                            <button type="submit" class="btn btn-success">
+                                <i class="bi bi-check-circle"></i> Add Event
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,121 @@
+{% extends "layout.html" %}
+
+{% block title %}Profile - NarrEyes{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card shadow">
+                <div class="card-body text-center">
+                    <div class="mb-3">
+                        <i class="bi bi-person-circle display-1 text-primary"></i>
+                    </div>
+                    <h3 class="card-title">{{ user.username }}</h3>
+                    <p class="text-muted">{{ user.email }}</p>
+                    <hr>
+                    <p class="text-muted small">
+                        <i class="bi bi-calendar-check"></i> Member since<br>
+                        {{ user.created_at.split()[0] if user.created_at else 'N/A' }}
+                    </p>
+                    <div class="d-grid gap-2">
+                        <a href="{{ url_for('edit_profile') }}" class="btn btn-primary">
+                            <i class="bi bi-pencil"></i> Edit Profile
+                        </a>
+                        <a href="{{ url_for('change_password') }}" class="btn btn-warning">
+                            <i class="bi bi-key"></i> Change Password
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="card shadow mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="bi bi-bar-chart"></i> Writing Statistics</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row text-center">
+                        <div class="col-md-4 mb-3">
+                            <div class="border rounded p-3">
+                                <i class="bi bi-people display-4 text-primary"></i>
+                                <h3 class="mt-2">{{ stats.characters }}</h3>
+                                <p class="text-muted mb-0">Characters</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="border rounded p-3">
+                                <i class="bi bi-journal-text display-4 text-success"></i>
+                                <h3 class="mt-2">{{ stats.chapters }}</h3>
+                                <p class="text-muted mb-0">Chapters</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="border rounded p-3">
+                                <i class="bi bi-fonts display-4 text-info"></i>
+                                <h3 class="mt-2">{{ "{:,}".format(stats.words) }}</h3>
+                                <p class="text-muted mb-0">Total Words</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="border rounded p-3">
+                                <i class="bi bi-calendar-event display-4 text-warning"></i>
+                                <h3 class="mt-2">{{ stats.timeline }}</h3>
+                                <p class="text-muted mb-0">Timeline Events</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="border rounded p-3">
+                                <i class="bi bi-hearts display-4 text-danger"></i>
+                                <h3 class="mt-2">{{ stats.relationships }}</h3>
+                                <p class="text-muted mb-0">Relationships</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card shadow border-danger">
+                <div class="card-header bg-danger text-white">
+                    <h5 class="mb-0"><i class="bi bi-exclamation-triangle"></i> Danger Zone</h5>
+                </div>
+                <div class="card-body">
+                    <h6>Delete Account</h6>
+                    <p class="text-muted">
+                        Once you delete your account, there is no going back. All your data will be permanently deleted.
+                    </p>
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                        <i class="bi bi-trash"></i> Delete My Account
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- Delete Confirmation Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title">
+                        <i class="bi bi-exclamation-triangle"></i> Confirm Account Deletion
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <form method="POST" action="{{ url_for('delete_account') }}">
+                    <div class="modal-body">
+                        <div class="alert alert-danger">
+                            <strong>Warning!</strong> This action cannot be undone. All your data will be permanently deleted.
+                        </div>
+                        <p>Please enter your password to confirm:</p>
+                        <input type="password" class="form-control" name="password" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-danger">Delete Account</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

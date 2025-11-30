@@ -1,0 +1,345 @@
+{% extends "layout.html" %}
+
+{% block title %}Add Chapter - NarrEyes{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2 class="card-title mb-0">
+                            <i class="bi bi-file-plus"></i> Add New Chapter
+                        </h2>
+                        <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#shortcutsModal">
+                            <i class="bi bi-keyboard"></i> Keyboard Shortcuts
+                        </button>
+                    </div>
+
+                    <form method="POST" action="{{ url_for('add_chapter') }}" id="chapterForm">
+                        <div class="row mb-3">
+                            <div class="col-md-8">
+                                <label for="title" class="form-label">Chapter Title *</label>
+                                <input type="text" class="form-control" id="title" name="title" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="chapter_number" class="form-label">Chapter Number *</label>
+                                <input type="number" class="form-control" id="chapter_number" name="chapter_number" min="1" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="status" class="form-label">Status</label>
+                            <select class="form-select" id="status" name="status">
+                                <option value="draft">Draft</option>
+                                <option value="in_progress">In Progress</option>
+                                <option value="review">Review</option>
+                                <option value="published">Published</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="content" class="form-label">Chapter Content</label>
+                            <textarea id="content" name="content"></textarea>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div>
+                                <span class="badge bg-primary fs-6">
+                                    <i class="bi bi-fonts"></i> Words: <span id="word-count">0</span>
+                                </span>
+                                <span class="badge bg-info fs-6 ms-2">
+                                    <i class="bi bi-file-text"></i> Characters: <span id="char-count">0</span>
+                                </span>
+                                <span class="badge bg-success fs-6 ms-2" id="autosave-status">
+                                    <i class="bi bi-check-circle"></i> Saved
+                                </span>
+                            </div>
+                            <button type="button" class="btn btn-outline-secondary btn-sm" id="loadTemplate">
+                                <i class="bi bi-file-earmark-code"></i> Load Template
+                            </button>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="{{ url_for('chapters') }}" class="btn btn-secondary">
+                                <i class="bi bi-x-circle"></i> Cancel
+                            </a>
+                            <button type="button" class="btn btn-warning" id="saveDraft">
+                                <i class="bi bi-save"></i> Save as Draft
+                            </button>
+                            <button type="submit" class="btn btn-success">
+                                <i class="bi bi-check-circle"></i> Save Chapter
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- Shortcuts Modal -->
+    <div class="modal fade" id="shortcutsModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="bi bi-keyboard"></i> Keyboard Shortcuts</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6 class="text-primary">Basic Formatting</h6>
+                            <table class="table table-sm">
+                                <tr>
+                                    <td><kbd>Ctrl + B</kbd></td>
+                                    <td>Bold</td>
+                                </tr>
+                                <tr>
+                                    <td><kbd>Ctrl + I</kbd></td>
+                                    <td>Italic</td>
+                                </tr>
+                                <tr>
+                                    <td><kbd>Ctrl + U</kbd></td>
+                                    <td>Underline</td>
+                                </tr>
+                                <tr>
+                                    <td><kbd>Ctrl + Shift + X</kbd></td>
+                                    <td>Strikethrough</td>
+                                </tr>
+                            </table>
+
+                            <h6 class="text-primary mt-3">Headers</h6>
+                            <table class="table table-sm">
+                                <tr>
+                                    <td><kbd>Ctrl + Alt + 1</kbd></td>
+                                    <td>Main Header</td>
+                                </tr>
+                                <tr>
+                                    <td><kbd>Ctrl + Alt + 2</kbd></td>
+                                    <td>Subheader</td>
+                                </tr>
+                                <tr>
+                                    <td><kbd>Ctrl + Alt + 3</kbd></td>
+                                    <td>Small Header</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="col-md-6">
+                            <h6 class="text-primary">Writing Tools</h6>
+                            <table class="table table-sm">
+                                <tr>
+                                    <td><kbd>Ctrl + Shift + S</kbd></td>
+                                    <td>Scene Break</td>
+                                </tr>
+                                <tr>
+                                    <td><kbd>Ctrl + K</kbd></td>
+                                    <td>Insert Link</td>
+                                </tr>
+                                <tr>
+                                    <td><kbd>Ctrl + Z</kbd></td>
+                                    <td>Undo</td>
+                                </tr>
+                                <tr>
+                                    <td><kbd>Ctrl + Y</kbd></td>
+                                    <td>Redo</td>
+                                </tr>
+                            </table>
+
+                            <h6 class="text-primary mt-3">General Commands</h6>
+                            <table class="table table-sm">
+                                <tr>
+                                    <td><kbd>Ctrl + S</kbd></td>
+                                    <td>Save</td>
+                                </tr>
+                                <tr>
+                                    <td><kbd>F11</kbd></td>
+                                    <td>Fullscreen</td>
+                                </tr>
+                                <tr>
+                                    <td><kbd>Ctrl + F</kbd></td>
+                                    <td>Search</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-info mt-3">
+                        <i class="bi bi-info-circle"></i>
+                        <strong>Tip:</strong> Use <kbd>Ctrl + Shift + S</kbd> to quickly insert a scene break (***) between different scenes.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+    // TinyMCE setup (same as before - English system messages)
+        tinymce.init({
+            selector: '#content',
+            height: 650,
+            menubar: 'file edit view insert format tools table help',
+            directionality: 'ltr',
+
+            plugins: [
+                'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+                'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+                'insertdatetime', 'media', 'table', 'help', 'wordcount', 'autosave',
+                'emoticons', 'pagebreak', 'nonbreaking', 'quickbars', 'save'
+            ],
+
+            toolbar: [
+                'undo redo | styles | bold italic underline strikethrough | fontfamily fontsize',
+                'alignleft aligncenter alignright alignjustify | outdent indent | numlist bullist',
+                'forecolor backcolor | scenebreak pagebreak | link image media | removeformat code fullscreen'
+            ],
+            toolbar_mode: 'sliding',
+
+            font_family_formats: 'Arial=arial,helvetica,sans-serif;' +
+            'Times New Roman=times new roman,times,serif;' +
+            'Georgia=georgia,palatino,serif;' +
+            'Tahoma=tahoma,arial,helvetica,sans-serif;' +
+            'Traditional Arabic=traditional arabic,serif;' +
+            'Simplified Arabic=simplified arabic,sans-serif',
+
+            font_size_formats: '8pt 10pt 12pt 14pt 16pt 18pt 20pt 24pt 28pt 36pt',
+
+            style_formats: [{
+                title: 'Headers',
+                items: [{
+                    title: 'Main Header',
+                    format: 'h1'
+                },
+                    {
+                        title: 'Subheader',
+                        format: 'h2'
+                    },
+                    {
+                        title: 'Small Header',
+                        format: 'h3'
+                    }
+                ]
+            },
+                {
+                    title: 'Writing Styles',
+                    items: [{
+                        title: 'Normal Paragraph',
+                        format: 'p'
+                    },
+                        {
+                            title: 'Chapter Start',
+                            block: 'p',
+                            classes: 'chapter-start'
+                        },
+                        {
+                            title: 'Dialogue',
+                            block: 'p',
+                            classes: 'dialogue'
+                        },
+                        {
+                            title: 'Description',
+                            block: 'p',
+                            classes: 'description'
+                        },
+                        {
+                            title: 'Internal Thought',
+                            inline: 'em',
+                            classes: 'thought'
+                        },
+                        {
+                            title: 'Letter',
+                            block: 'blockquote',
+                            classes: 'letter'
+                        }
+                    ]
+                }
+            ],
+
+            content_style: 'body { font-family: Georgia, serif; font-size: 16pt; line-height: 2; max-width: 850px; margin: 20px auto; padding: 30px; } p { text-align: justify; text-indent: 2em; } .chapter-start { text-indent: 0 !important; font-weight: 500; } .dialogue { margin-left: 3em; font-style: italic; color: #34495e; border-left: 3px solid #3498db; padding-left: 1em; } .description { color: #555; background: #f8f9fa; padding: 1em; } .thought { font-style: italic; color: #7f8c8d; } .letter { border-left: 4px solid #e74c3c; padding: 1.5em; background: #fff5f5; font-style: italic; } .scene-break { text-align: center; font-size: 24pt; margin: 3em 0; color: #95a5a6; letter-spacing: 1em; }',
+
+            setup: function(editor) {
+                editor.ui.registry.addButton('scenebreak', {
+                    text: '* * *',
+                    tooltip: 'Insert Scene Break (Ctrl+Shift+S)',
+                    onAction: function() {
+                        editor.insertContent('<p class="scene-break">* * *</p>');
+                    }
+                });
+
+                editor.addShortcut('ctrl+shift+s', 'Insert Scene Break', function() {
+                    editor.insertContent('<p class="scene-break">* * *</p>');
+                });
+
+                editor.on('keyup change', function() {
+                    const content = editor.getContent({
+                        format: 'text'
+                    });
+                    const wordCount = content.trim().split(/\s+/).filter(w => w.length > 0).length;
+                    const charCount = content.length;
+                    document.getElementById('word-count').textContent = wordCount;
+                    document.getElementById('char-count').textContent = charCount;
+                });
+
+                let saveTimeout;
+                editor.on('change', function() {
+                    clearTimeout(saveTimeout);
+                    document.getElementById('autosave-status').innerHTML = '<i class="bi bi-hourglass-split"></i> Saving...';
+                    saveTimeout = setTimeout(function() {
+                        localStorage.setItem('chapter_draft', JSON.stringify({
+                            content: editor.getContent(),
+                            title: document.getElementById('title').value,
+                            timestamp: new Date().toISOString()
+                        }));
+                        document.getElementById('autosave-status').innerHTML = '<i class="bi bi-check-circle"></i> Saved';
+                    }, 2000);
+                });
+
+                editor.on('init', function() {
+                    const saved = localStorage.getItem('chapter_draft');
+                    if (saved) {
+                        const data = JSON.parse(saved);
+                        if (confirm('Restore saved draft?')) {
+                            editor.setContent(data.content);
+                            document.getElementById('title').value = data.title || '';
+                        }
+                    }
+                });
+            },
+
+            browser_spellcheck: true,
+            fullscreen_native: true,
+            save_onsavecallback: function() {
+                document.getElementById('chapterForm').submit();
+            }
+        });
+
+        document.getElementById('saveDraft').addEventListener('click', function() {
+            const editor = tinymce.get('content');
+            localStorage.setItem('chapter_draft', JSON.stringify({
+                content: editor.getContent(),
+                title: document.getElementById('title').value,
+                timestamp: new Date().toISOString()
+            }));
+            alert('Draft saved successfully!');
+        });
+
+        document.getElementById('loadTemplate').addEventListener('click', function() {
+            const templates = {
+                1: '<h2>Chapter Title</h2><p class="chapter-start">Chapter beginning...</p>',
+                2: '<p class="dialogue">"First dialogue"</p><p>The narrator said.</p>',
+                3: '<p class="scene-break">* * *</p><p><em>The past...</em></p>',
+                4: '<blockquote class="letter"><p>Dear...</p></blockquote>'
+            };
+            const choice = prompt('Choose template:\n1. Basic Chapter\n2. Dialogue\n3. Flashback\n4. Letter');
+            if (templates[choice]) {
+                tinymce.get('content').insertContent(templates[choice]);
+            }
+        });
+
+        document.getElementById('chapterForm').addEventListener('submit', function() {
+            localStorage.removeItem('chapter_draft');
+        });
+    </script>
+{% endblock %}

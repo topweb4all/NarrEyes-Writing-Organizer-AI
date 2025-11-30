@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ chapter.title }} - NarrEyes{% endblock %}
+
+{% block content %}
+    <div class="card shadow">
+        <div class="card-body p-4">
+            <div class="d-flex justify-content-between align-items-start mb-4">
+                <div>
+                    <h2 class="card-title">
+                        <span class="badge bg-primary">Chapter {{ chapter.chapter_number }}</span>
+                        {{ chapter.title }}
+                    </h2>
+                    <p class="text-muted">
+                        <i class="bi bi-calculator"></i> Word Count: {{ chapter.word_count }}
+                        <span class="ms-3">
+                            <i class="bi bi-circle-fill" style="color: {% if chapter.status == 'published' %}green{% elif chapter.status == 'draft' %}orange{% else %}gray{% endif %}"></i>
+                            {{ chapter.status|title }}
+                        </span>
+                    </p>
+                </div>
+                <div class="btn-group">
+                    <a href="{{ url_for('edit_chapter', id=chapter.id) }}" class="btn btn-warning">
+                        <i class="bi bi-pencil"></i> Edit
+                    </a>
+                    <a href="{{ url_for('chapters') }}" class="btn btn-secondary">
+                        <i class="bi bi-arrow-left"></i> Back
+                    </a>
+                </div>
+            </div>
+
+            {% if chapter.content %}
+                <div class="chapter-content">
+                    {{ chapter.content|safe }}
+                </div>
+            {% else %}
+                <div class="alert alert-warning">
+                    <i class="bi bi-exclamation-triangle"></i> This chapter is currently empty.
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+
+{% block title %}Add Relationship - NarrEyes{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-body p-4">
+                    <h2 class="card-title text-center mb-4">
+                        <i class="bi bi-heart-arrow"></i> Add Character Relationship
+                    </h2>
+                    <form method="POST" action="{{ url_for('add_relationship') }}">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="character1_id" class="form-label">First Character *</label>
+                                <select class="form-select" id="character1_id" name="character1_id" required>
+                                    <option value="">-- Select --</option>
+                                    {% for character in characters %}
+                                        <option value="{{ character.id }}">{{ character.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="character2_id" class="form-label">Second Character *</label>
+                                <select class="form-select" id="character2_id" name="character2_id" required>
+                                    <option value="">-- Select --</option>
+                                    {% for character in characters %}
+                                        <option value="{{ character.id }}">{{ character.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="relationship_type" class="form-label">Relationship Type *</label>
+                            <input type="text" class="form-control" id="relationship_type" name="relationship_type" placeholder="e.g., Friends, Rivals, Family" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea class="form-control" id="description" name="description" rows="4"></textarea>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="{{ url_for('relationships') }}" class="btn btn-secondary">
+                                <i class="bi bi-x-circle"></i> Cancel
+                            </a>
+                            <button type="submit" class="btn btn-success">
+                                <i class="bi bi-check-circle"></i> Add Relationship
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

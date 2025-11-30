@@ -1,0 +1,88 @@
+{% extends "layout.html" %}
+
+{% block title %}Dashboard - NarrEyes{% endblock %}
+
+{% block content %}
+    <h2 class="mb-4"><i class="bi bi-speedometer2"></i> Dashboard</h2>
+
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card shadow text-center">
+                <div class="card-body">
+                    <i class="bi bi-people display-3 text-primary"></i>
+                    <h3 class="mt-3">{{ characters_count }}</h3>
+                    <p class="text-muted">Characters</p>
+                    <a href="{{ url_for('characters') }}" class="btn btn-primary btn-sm">
+                        View Characters
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card shadow text-center">
+                <div class="card-body">
+                    <i class="bi bi-journal-text display-3 text-success"></i>
+                    <h3 class="mt-3">{{ chapters_count }}</h3>
+                    <p class="text-muted">Chapters</p>
+                    <a href="{{ url_for('chapters') }}" class="btn btn-success btn-sm">
+                        View Chapters
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card shadow text-center">
+                <div class="card-body">
+                    <i class="bi bi-calendar-event display-3 text-warning"></i>
+                    <h3 class="mt-3">{{ timeline_count }}</h3>
+                    <p class="text-muted">Timeline Events</p>
+                    <a href="{{ url_for('timeline') }}" class="btn btn-warning btn-sm">
+                        View Timeline
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-6 mb-4">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="bi bi-lightbulb"></i> Quick Actions</h5>
+                </div>
+                <div class="list-group list-group-flush">
+                    <a href="{{ url_for('add_chapter') }}" class="list-group-item list-group-item-action">
+                        <i class="bi bi-file-plus"></i> Write New Chapter
+                    </a>
+                    <a href="{{ url_for('add_character') }}" class="list-group-item list-group-item-action">
+                        <i class="bi bi-person-plus"></i> Create Character
+                    </a>
+                    <a href="{{ url_for('add_event') }}" class="list-group-item list-group-item-action">
+                        <i class="bi bi-calendar-plus"></i> Add Timeline Event
+                    </a>
+                    <a href="{{ url_for('ai') }}" class="list-group-item list-group-item-action">
+                        <i class="bi bi-stars"></i> AI Generator
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <div class="card shadow">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0"><i class="bi bi-info-circle"></i> Writing Tips</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="bi bi-check-circle text-success"></i> Create detailed character profiles</li>
+                        <li class="mb-2"><i class="bi bi-check-circle text-success"></i> Plan your timeline carefully</li>
+                        <li class="mb-2"><i class="bi bi-check-circle text-success"></i> Write consistently every day</li>
+                        <li class="mb-2"><i class="bi bi-check-circle text-success"></i> Use AI for inspiration</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
